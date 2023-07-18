@@ -4,8 +4,8 @@ const {
 } = require('celebrate');
 
 const auth = require('../middlewares/auth');
-const users = require('./users');
 const movies = require('./movies');
+const users = require('./users');
 const { login, createNewUser } = require('../controllers/users');
 const { NotFoundError } = require('../errors/NotFoundError');
 
