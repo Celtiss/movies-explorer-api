@@ -14,7 +14,7 @@ module.exports.getSavedMovies = (req, res, next) => {
 module.exports.createMovie = (req, res, next) => {
   const {
     country, director, duration, year, description, image,
-    trailerLink, thumbNail, movieId, nameRU, nameEN,
+    trailerLink, thumbnail, movieId, nameRU, nameEN,
   } = req.body;
   Movie.create({
     country,
@@ -24,7 +24,7 @@ module.exports.createMovie = (req, res, next) => {
     description,
     image,
     trailerLink,
-    thumbNail,
+    thumbnail,
     owner: req.user._id,
     movieId,
     nameRU,

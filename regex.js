@@ -1,4 +1,4 @@
 const patternUrlImg = (/(^(https?:\/\/)?(www\.)?[^/\s]+\.[^/\s]+(\/[^/\s]*)*#?$)/);
 const patternUrlLink = (/(^(https?:\/\/)?(www\.)?[^/\s]+\.[^/\s]+(\/[^/\s]*)*#?$)/);
-module.exports = { patternUrlImg, patternUrlLink };
-// module.exports = patternUrlLink;
+const emailRegex = /([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9_-]+)/;
+module.exports = { patternUrlImg, patternUrlLink, emailRegex };

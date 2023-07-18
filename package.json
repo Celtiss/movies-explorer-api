@@ -35,6 +35,7 @@
     "express-winston": "^4.2.0",
     "jsonwebtoken": "^9.0.1",
     "mongoose": "^7.3.2",
+    "mongoose-validator": "^2.1.0",
     "winston": "^3.9.0"
   },
   "devDependencies": {

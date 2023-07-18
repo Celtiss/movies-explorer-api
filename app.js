@@ -8,13 +8,14 @@ const {
 } = require('celebrate');
 const routes = require('./routes/index');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
+const errorHandler = require('./middlewares/errorHandler');
 
-const { PORT, DB_PATH } = process.env;
+const { NODE_ENV, PORT = 3000, DB_PATH } = process.env;
 
 const app = express();
 
 // Подключение к БД
-mongoose.connect(DB_PATH, {
+mongoose.connect(NODE_ENV === 'production' ? DB_PATH : 'mongodb://localhost:27017/bitfilmsdb', {
   useNewUrlParser: true,
 })
   .then(() => console.log('connected'))
@@ -44,17 +45,7 @@ app.use(errorLogger); // логгер ошибок
 
 // // ОБРАБОТКА ОШИБОК
 app.use(errors());
-app.use((err, req, res, next) => {
-  const { statusCode = 500, message } = err;
-
-  res.status(statusCode)
-    .send({
-      message: statusCode === 500
-        ? 'На сервере произошла ошибка'
-        : message,
-    });
-  next();
-});
+app.use(errorHandler);
 
 app.listen(PORT, () => {
   console.log(`App listening on port ${PORT}`);

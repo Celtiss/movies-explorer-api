@@ -1,5 +1,5 @@
 const { mongoose } = require('mongoose');
-// const bcrypt = require('bcryptjs');
+const { patternUrlImg, patternUrlLink } = require('../regex');
 
 const movieSchema = new mongoose.Schema({
   country: {
@@ -25,14 +25,32 @@ const movieSchema = new mongoose.Schema({
   image: {
     type: String,
     required: true,
+    validate: {
+      validator(v) {
+        return patternUrlImg.test(v);
+      },
+      message: 'Invalid URL.',
+    },
   },
   trailerLink: {
     type: String,
     required: true,
+    validate: {
+      validator(v) {
+        return patternUrlLink.test(v);
+      },
+      message: 'Invalid URL.',
+    },
   },
-  thumbNail: {
+  thumbnail: {
     type: String,
     required: true,
+    validate: {
+      validator(v) {
+        return patternUrlImg.test(v);
+      },
+      message: 'Invalid URL.',
+    },
   },
   owner: {
     type: mongoose.Schema.Types.ObjectId,
@@ -52,16 +70,5 @@ const movieSchema = new mongoose.Schema({
     required: true,
   },
 });
-
-function validateURL(value) {
-  const urlRegex = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-/]))?/;
-  return urlRegex.test(value);
-}
-
-movieSchema.path('image').validate((value) => validateURL(value), 'Invalid image URL.');
-
-movieSchema.path('trailerLink').validate((value) => validateURL(value), 'Invalid trailer link URL.');
-
-movieSchema.path('thumbNail').validate((value) => validateURL(value), 'Invalid thumbnail URL.');
 
 module.exports = mongoose.model('movie', movieSchema);

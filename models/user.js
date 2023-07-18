@@ -1,12 +1,19 @@
 const { mongoose } = require('mongoose');
 const bcrypt = require('bcryptjs');
 const { UnauthorizedError } = require('../errors/UnauthorizedError');
+const { emailRegex } = require('../regex');
 
 const userSchema = new mongoose.Schema({
   email: {
     type: String,
     unique: true,
     required: true,
+    validate: {
+      validator(v) {
+        return emailRegex.test(v);
+      },
+      message: 'Invalid email.',
+    },
   },
   password: {
     type: String,
@@ -20,11 +27,6 @@ const userSchema = new mongoose.Schema({
     maxlength: 30,
   },
 });
-
-userSchema.path('email').validate((val) => {
-  const urlRegex = /([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9_-]+)/;
-  return urlRegex.test(val);
-}, 'Invalid email.');
 
 userSchema.statics.findUserByCredentials = function (email, password) {
   return this.findOne({ email }).select('+password')
