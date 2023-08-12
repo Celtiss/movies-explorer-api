@@ -23,7 +23,13 @@ mongoose.connect(NODE_ENV === 'production' ? DB_PATH : 'mongodb://localhost:2701
 
 // Обработка CORS
 app.use(cors({
-  origin: '*',
+  origin: [
+    'http://movies-tmr.nomoreparties.co',
+    'https://movies-tmr.nomoreparties.co',
+    'http://localhost:3000',
+    'https://localhost:3000',
+    'https://localhost:3001',
+    'http://localhost:3001'],
   methods: ['GET', 'POST', 'DELETE', 'UPDATE', 'PUT', 'PATCH'],
   credentials: true,
 }));
