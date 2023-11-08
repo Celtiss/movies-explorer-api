@@ -30,12 +30,12 @@ A server for the movie search service. It allows you to:
 
 You can check the functionality of server requests using Postman. Here are some example requests to the address https://api.movies-tmr.nomoredomains.xyz.
 
-GET:
+### GET:
 /users/ - получить всех пользователей
 /users/me - получить авторизованного пользователя
 /movies/ - получить все фильмы
 
-POST:
+### POST:
 /signup - регистрация
 ``` json
 {
@@ -71,7 +71,7 @@ POST:
   }
 ```
 
-PATCH: 
+### PATCH: 
 /users/me - изменение данных профиля
 ``` json
 {
@@ -80,7 +80,7 @@ PATCH:
 }
 ```
 
-DELETE:
+### DELETE:
 /movies/:_id - удалить фильм по id
 
 
